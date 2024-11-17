@@ -10,16 +10,19 @@ y = (screen.get_height()/2)-5
 a = 10
 b = 10
 
-def 
+def background():
+    screen.fill((0, 0, 0))
+    pygame.draw.lines(screen, (255, 255, 255), True,
+                      [(10, 10), (525, 10), (10, 10), (10, 320), (525, 320),
+                       (525, 10)], 5)
+    pygame.draw.line(screen, (255, 255, 255), (263, 10), (263, 320), 5)
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill((0, 0, 0))
-    pygame.draw.lines(screen, (255, 255, 255), True,[(10, 10), (525, 10), (10, 10), (10, 320), (525, 320),(525, 10)], 5)
-    pygame.draw.line(screen, (255, 255, 255), (263, 10), (263, 320), 5)
-
+    background()
 
     pygame.draw.rect(screen, (255, 255, 255), (x, y, 10, 10))
 
