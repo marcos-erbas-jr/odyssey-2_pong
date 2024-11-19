@@ -45,24 +45,53 @@ while running:
 
 
     pygame.draw.rect(screen, (255, 255, 255), (x, y, 10, 10))
+    #pygame.draw.rect(screen, "green", (x, y, 1, 1))
 
     #raquete do player 1
     pygame.draw.rect(screen, (255, 255, 255), (player1x, player1y, 10, 40))
 
+    #pygame.draw.rect(screen, "red", (player1x, player1y, 1, 40))
+
     #raquete do player 2
     pygame.draw.rect(screen, (255, 255, 255), (player2x, player2y, 10, 40))
 
-    x += a
-    y += b/4
-    if x >= 510 or x <= 10:
-        a *= -1
-        if x >= 510:
-            player1 += 1
+    x += a/4
+    y += b/6
+
+    if x >= 510 or x <= 10 or (x >= player1x and x < (player1x + 10) and y >=
+                               (player1y) and y < (player1y + 40)):
+        if a > 60:
+            a = 60
+            a *= -1
         else:
+            a *= -1.09
+        print(a)
+        if x >= 510:
+            x = 510
+            player1 += 1
+        elif x <= 10:
+            x = 10
             player2 += 1
 
     if y >= 315 or y <= 10:
         b *= -1
+
+
+    #CAPTURA DE TECLA
+    keys = pygame.key.get_pressed()
+
+    #MOVIMENTAÇÃO DA RAQUETE
+    if keys[pygame.K_UP]:
+        if player1y <= 17:
+            player1y = 17
+        else:
+            player1y -= 5
+    if keys[pygame.K_DOWN]:
+        if player1y >= 275:
+            player1y = 275
+        else:
+            player1y += 5
+
 
 
     pygame.display.flip()
