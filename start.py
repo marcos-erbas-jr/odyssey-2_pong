@@ -12,9 +12,13 @@ x = (screen.get_width()/2)-8
 y = (screen.get_height()/2)-5
 a = 10
 b = 10
+zone = 450
+
+
 player1 = 0 #score player 1
 player1x = 30
 player1y = 155
+
 
 player2 = 0 #score player 2
 player2x = 495
@@ -55,28 +59,43 @@ while running:
     #raquete do player 2
     pygame.draw.rect(screen, (255, 255, 255), (player2x, player2y, 10, 40))
 
+    #movimentação da bolinha
     x += a/4
-    y += b/6
+    y += b/3
 
-    if x >= 510 or x <= 10 or (x >= player1x and x < (player1x + 10) and y >=
-                               (player1y) and y < (player1y + 40)):
+    if (x >= 510 or x <= 10 or (x >= player1x and x < (player1x + 10) and
+                                y >= (player1y) and y < (player1y + 40)) or
+                                (x >=player2x and x < (player2x + 10) and
+                                 y >=(player2y) and y < (player2y + 40))):
         if a > 60:
             a = 60
             a *= -1
         else:
             a *= -1.09
-        print(a)
-        if x >= 510:
+        if x >= 510 and zone < x:
             x = 510
             player1 += 1
-        elif x <= 10:
+            zone = 450
+        elif x <= 10 and zone > x:
             x = 10
+            zone = 70
             player2 += 1
+
 
     if y >= 315 or y <= 10:
         b *= -1
 
-
+    # MOVIMENTAÇÃO DO PLAYER 2
+    if player2y > y:
+        if player2y <= 17:
+            player2y = 17
+        else:
+            player2y -= 4
+    elif player2y < y:
+        if player2y >= 275:
+            player2y = 275
+        else:
+            player2y += 4
     #CAPTURA DE TECLA
     keys = pygame.key.get_pressed()
 
@@ -85,12 +104,12 @@ while running:
         if player1y <= 17:
             player1y = 17
         else:
-            player1y -= 5
+            player1y -= 3
     if keys[pygame.K_DOWN]:
         if player1y >= 275:
             player1y = 275
         else:
-            player1y += 5
+            player1y += 3
 
 
 
